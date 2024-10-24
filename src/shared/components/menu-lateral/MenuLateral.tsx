@@ -1,8 +1,10 @@
 import { Avatar, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import foto1 from '../../../static/images/avatar/foto1.jpg'; 
-import { useAppThemeContext, useDrawerContext } from '../../contexts';import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
+import { useAppThemeContext, useDrawerContext } from '../../contexts';
+import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 
+// Interface para as propriedades do ListItemLink
 interface IListItemLinkProps {
   to: string;
   icon: string;
@@ -12,10 +14,8 @@ interface IListItemLinkProps {
 
 const ListItemLink: React.FC<IListItemLinkProps> = ({ to, icon, label, onClick }) => {
   const navigate = useNavigate();
-
   const resolvedPath = useResolvedPath(to);
   const match = useMatch({ path: resolvedPath.pathname, end: false });
-
 
   const handleClick = () => {
     navigate(to);
@@ -32,7 +32,12 @@ const ListItemLink: React.FC<IListItemLinkProps> = ({ to, icon, label, onClick }
   );
 };
 
-export const MenuLateral: React.FC = ({ children }) => {
+// Interface para as propriedades do MenuLateral
+interface MenuLateralProps {
+  children: React.ReactNode; // Aqui você define que children é do tipo ReactNode
+}
+
+export const MenuLateral: React.FC<MenuLateralProps> = ({ children }) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -41,9 +46,8 @@ export const MenuLateral: React.FC = ({ children }) => {
 
   return (
     <>
-      <Drawer  open={isDrawerOpen} variant={smDown ? 'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
+      <Drawer open={isDrawerOpen} variant={smDown ? 'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
         <Box width={theme.spacing(28)} height="100%" display="flex" flexDirection="column">
-
           <Box width="100%" height={theme.spacing(20)} display="flex" alignItems="center" justifyContent="center">
             <Avatar
               sx={{ height: theme.spacing(12), width: theme.spacing(12) }}
@@ -55,7 +59,7 @@ export const MenuLateral: React.FC = ({ children }) => {
           <Divider />
 
           <Box flex={1}>
-          <List component="nav">
+            <List component="nav">
               {drawerOptions.map(drawerOption => (
                 <ListItemLink
                   to={drawerOption.path}
@@ -67,16 +71,17 @@ export const MenuLateral: React.FC = ({ children }) => {
               ))}
             </List>
           </Box>
-            <Box>
-              <List component="nav">
-                <ListItemButton onClick={toggleTheme}>
-                  <ListItemIcon>
-                    <Icon>dark_mode</Icon>
-                  </ListItemIcon>
-                  <ListItemText primary="Alternar tema" />
-                </ListItemButton>
-              </List>
-            </Box>
+
+          <Box>
+            <List component="nav">
+              <ListItemButton onClick={toggleTheme}>
+                <ListItemIcon>
+                  <Icon>dark_mode</Icon>
+                </ListItemIcon>
+                <ListItemText primary="Alternar tema" />
+              </ListItemButton>
+            </List>
+          </Box>
         </Box>
       </Drawer>
 

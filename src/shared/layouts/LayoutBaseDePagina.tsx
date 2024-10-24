@@ -1,14 +1,14 @@
 import { ReactNode } from 'react';
 import { Icon, IconButton, Theme, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
-
 import { useDrawerContext } from '../contexts';
-
 
 interface ILayoutBaseDePaginaProps {
   titulo: string;
   barraDeFerramentas?: ReactNode;
+  children: ReactNode; // Propriedade children adicionada
 }
+
 export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ children, titulo, barraDeFerramentas }) => {
   const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
   const mdDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
@@ -28,7 +28,7 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ childre
         <Typography
           overflow="hidden"
           whiteSpace="nowrap"
-          textOverflow="ellipses"
+          textOverflow="ellipsis" // Corrigido para "ellipsis"
           variant={smDown ? 'h5' : mdDown ? 'h4' : 'h3'}
         >
           {titulo}
@@ -42,7 +42,7 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ childre
       )}
 
       <Box flex={1} overflow="auto">
-        {children}
+        {children} {/* Renderiza os children aqui */}
       </Box>
     </Box>
   );

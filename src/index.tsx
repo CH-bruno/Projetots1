@@ -1,11 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { App } from './App';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// Seleciona o contêiner root
+const container = document.getElementById('root');
+
+// Verifica se o contêiner existe
+if (container) {
+  const root = createRoot(container); // Cria a raiz usando createRoot
+
+  // Renderiza o aplicativo
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  );
+} else {
+  console.error('O elemento com ID "root" não foi encontrado.');
+}
